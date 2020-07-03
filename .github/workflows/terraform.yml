@@ -7,14 +7,15 @@ on:
   pull_request:
 
 jobs:
-  terraform:
-    name: 'Terraform'
+  terraform-kaizen:
+    name: 'Terraform for Kaizen Organization'
     runs-on: ubuntu-latest
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
       run:
         shell: bash
+        working-directory: ./organizations/kaizen
 
     # Checkout the repository to the GitHub Actions runner
     steps:
@@ -22,25 +23,64 @@ jobs:
       uses: actions/checkout@v2
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token 
-    - name: Setup Terraform
+    - name: Setup Terraform for Kaizen Organization
       uses: hashicorp/setup-terraform@v1
       with:
-        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+        cli_config_credentials_token: ${{ secrets.TF_KAIZEN_API_TOKEN }}
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init
-      run: terraform init 
+    - name: Terraform Init for Kaizen Organization
+      run: terraform init
 
     # Checks that all Terraform configuration files adhere to a canonical format
-    - name: Terraform Format
+    - name: Terraform Format for Kaizen Organization
       run: terraform fmt -check
 
     # Generates an execution plan for Terraform
-    - name: Terraform Plan
-      run: terraform plan -var 'api_token=${{ secrets.TF_API_TOKEN }}'
+    - name: Terraform Plan for Kaizen Organization
+      run: terraform plan -var 'api_token=${{ secrets.TF_KAIZEN_API_TOKEN }}'
     
       # On push to master, build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-    - name: Terraform Apply
+    - name: Terraform Apply for Kaizen Organization
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-      run: terraform apply -auto-approve -var 'api_token=${{ secrets.TF_API_TOKEN }}'
+      run: terraform apply -auto-approve -var 'api_token=${{ secrets.TF_KAIZEN_API_TOKEN }}'
+  
+  terraform-betherealone:
+    name: 'Terraform for betherealone Organization'
+    runs-on: ubuntu-latest
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./organizations/betherealone
+
+    # Checkout the repository to the GitHub Actions runner
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token 
+    - name: Setup Terraform for betherealone Organization
+      uses: hashicorp/setup-terraform@v1
+      with:
+        cli_config_credentials_token: ${{ secrets.TF_KAIZEN_API_TOKEN }}
+
+    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init for betherealone Organization
+      run: terraform init
+
+    # Checks that all Terraform configuration files adhere to a canonical format
+    - name: Terraform Format for betherealone Organization
+      run: terraform fmt -check
+
+    # Generates an execution plan for Terraform
+    - name: Terraform Plan for betherealone Organization
+      run: terraform plan -var 'api_token=${{ secrets.TF_KAIZEN_API_TOKEN }}'
+    
+      # On push to master, build or change infrastructure according to Terraform configuration files
+      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
+    - name: Terraform Apply for betherealone Organization
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+      run: terraform apply -auto-approve -var 'api_token=${{ secrets.TF_KAIZEN_API_TOKEN }}'
