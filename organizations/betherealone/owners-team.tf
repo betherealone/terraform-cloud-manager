@@ -8,7 +8,3 @@ resource "tfe_team" "owners" {
 resource "tfe_team_token" "owners_token" {
   team_id = tfe_team.owners.id
 }
-
-output "owners_team_token" {
-  value = tfe_team_token.owners_token.token
-}
