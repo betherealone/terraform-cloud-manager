@@ -6,3 +6,10 @@ This repository is used to manage resources in the Terraform Cloud  https://app.
 
 Following the philosophy of keeping everything as code, terraform state management is import when using terraform to manage various resources.
 
+## Workflow
+
+1. Make the terraform changes in a feature branch, avoid pushing to master branch.
+2. Terraform remote backend doesn't support setting run variables, so `terraform plan -var='a=b'` will not work.
+   Currently only way to pass variables to the remote backend is by creating a `*.auto.tfvars` variables file.
+   Work need to be done to how to generate this file when running.
+3. Other solution is to configure terraform remote backend to be set to `local` mode.
