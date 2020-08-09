@@ -101,13 +101,13 @@ jobs:
       uses: actions/checkout@v2
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token 
-    - name: Setup Terraform for betherealone Organization
+    - name: Setup Terraform for ggsood Organization
       uses: hashicorp/setup-terraform@v1
       with:
         cli_config_credentials_token: ${{ secrets.TF_KAIZEN_API_TOKEN }}
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init for betherealone Organization
+    - name: Terraform Init for ggsood Organization
       run: terraform init
 
     # Checks that all Terraform configuration files adhere to a canonical format
