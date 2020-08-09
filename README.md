@@ -15,3 +15,8 @@ With this in mind terraform cloud remote state management is used.
    Currently only way to pass variables to the remote backend is by creating a `*.auto.tfvars` variables file.
    Work need to be done to how to generate this file when running.
 3. Other solution is to configure terraform remote backend to be set to `local` mode, this can be done from the terraform cloud console.
+
+
+## NOTE 
+
+- in free terraform cloud need to import owners team id
